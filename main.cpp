@@ -1,30 +1,23 @@
 #include <iostream>
-#include <optional>
+#include <utility>
 
-// returns -1 if fail
-std::optional<int> mayFail(int n) {
+struct MyData {
+    std::string first;
+    int second;
+};
 
-    if (n % 2 == 0) {
-        // fail
-        return std::nullopt;
-    } else {
-        // success
-        return 42;
-    }
+MyData createData2() {
+    return MyData{"Per", 42};
+}
+
+std::pair<std::string, int> createData() {
+    return std::make_pair<std::string, int>("Per", 42);
 }
 
 int main() {
-
-    for (int i = 0; i < 10; i++) {
-        auto result = mayFail(i);
-        if (!result) {
-            // it failed
-            std::cout << "fail: " << std::endl;
-        } else {
-            // cure cancer
-            std::cout << "yay! value=" << result.value() << std::endl;
-        }
-    }
-
-    return 0;
+    
+    auto data = createData(); // or createData2()
+    std::string str = data.first;
+    int i = data.second;
+    
 }
